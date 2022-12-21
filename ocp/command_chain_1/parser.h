@@ -36,6 +36,7 @@ public:
     }
 
     void parse() {
+        variables.clear();
         line_t line;
         while (std::getline(std::cin, line)) {
             process(line);
