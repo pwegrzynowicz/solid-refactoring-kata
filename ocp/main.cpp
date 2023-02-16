@@ -5,14 +5,17 @@
 #include <string>
 #include <iterator>
 
-// A simple parser.
+// A simple parser that processes different commands e.g.
+// - defining a variable
+// - printing a string or a variable
+// - adding a string to a variable (concatenation)
 int main() {
     std::unordered_map<std::string, std::string> variables;
     std::string line;
     while (std::getline(std::cin, line)) {
         switch (line[0]) {
             case '$': {
-                // Process the entire line as a variable.
+                // Process an entire line as a variable.
                 size_t equals = line.find('=');
                 std::string name = line.substr(0, equals);
                 std::string value = line.substr(equals+1);
@@ -20,9 +23,9 @@ int main() {
                 break;
             }
             case '!': {
-                // Process the command in this line.
+                // Process an action in this line.
                 if (line.find("!print", 0) == 0) {
-                    // Process the print command.
+                    // Process the print action.
                     std::istringstream iss(line);
                     std::vector<std::string> tokens((std::istream_iterator<std::string>(iss)),
                                                      std::istream_iterator<std::string>());
@@ -39,7 +42,7 @@ int main() {
                     std::cout << std::endl;
 
                 } else if (line.find("!add", 0) == 0) {
-                    // Process the add command: add another variable or value to a specified variable.
+                    // Process the add action: add another variable or value to a specified variable.
                     std::istringstream iss(line);
                     std::vector<std::string> tokens((std::istream_iterator<std::string>(iss)),
                                                      std::istream_iterator<std::string>());
